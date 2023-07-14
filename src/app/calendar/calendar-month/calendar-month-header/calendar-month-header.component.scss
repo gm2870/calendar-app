@@ -1,0 +1,22 @@
+.cell-row {
+  display: flex;
+  text-align: center;
+  font-weight: bolder;
+
+  &:hover {
+    background-color: #f7f7f7;
+  }
+}
+
+.header-cell {
+  padding: 5px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  white-space: nowrap;
+  flex: 1;
+
+  &:hover {
+    background-color: #ededed;
+  }
+}

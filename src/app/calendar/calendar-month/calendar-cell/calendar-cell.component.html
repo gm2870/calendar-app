@@ -1,0 +1,14 @@
+<div class="cell-container">
+  <div
+    class="cell"
+    (click)="showEventBox()"
+    [ngClass]="{ disabled: cell.disabled }"
+  >
+    <div *ngIf="selectedDay === cell.day" class="selected"></div>
+    <span
+      class="day-number"
+      [ngClass]="selectedDay === cell.day ? 'blue' : ''"
+      >{{ cell.day }}</span
+    >
+  </div>
+</div>

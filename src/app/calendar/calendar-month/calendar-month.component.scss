@@ -1,0 +1,36 @@
+:host {
+  flex: 1;
+}
+.cal-days {
+  display: flex;
+  border: 1px solid #e1e1e1;
+  flex-direction: column;
+}
+.row:not(:last-child) {
+  border-bottom: 1px solid #e1e1e1;
+  &:hover {
+    background-color: #f7f7f7;
+  }
+}
+.cell {
+  display: flex;
+  flex: 1;
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+  border-bottom: 1px solid #e1e1e1;
+
+  border-right: 1px solid #e1e1e1;
+}
+
+.event-container {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  z-index: 2;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border-top: 1px solid #e1e1e1;
+  border-left: 1px solid #e1e1e1;
+}

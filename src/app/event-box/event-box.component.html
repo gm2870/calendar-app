@@ -1,0 +1,55 @@
+<div class="event-box">
+  <div class="header">
+    <span class="title">Calendar</span>
+    <button class="close-btn" mat-icon-button (click)="closeBox.emit()">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </div>
+  <form class="form" (ngSubmit)="save()" [formGroup]="form">
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <input
+          formControlName="name"
+          matInput
+          type="text"
+          placeholder="Event Name"
+        />
+      </mat-form-field>
+    </div>
+    <div class="d-flex align-items-center">
+      <mat-form-field class="time-field" appearance="outline">
+        <input
+          formControlName="startTime"
+          matInput
+          min="0"
+          max="23"
+          type="number"
+          placeholder="Start Time"
+        />
+      </mat-form-field>
+
+      <div class="time-flat" (click)="toggleStartIsPM()">
+        {{ startIsPM ? "PM" : "AM" }}
+      </div>
+    </div>
+    <div class="d-flex align-items-center">
+      <mat-form-field class="time-field" appearance="outline">
+        <input
+          formControlName="endTime"
+          matInput
+          min="0"
+          max="59"
+          type="number"
+          placeholder="End Time"
+        />
+      </mat-form-field>
+
+      <div class="time-flat" (click)="toggleEndIsPM()">
+        {{ endIsPM ? "PM" : "AM" }}
+      </div>
+    </div>
+    <div class="d-flex justify-content-end">
+      <button type="submit" mat-raised-button color="primary">Save</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,12 @@
+<div class="cal-month-view">
+  <app-calendar-month-header></app-calendar-month-header>
+  <div class="grid">
+    <ng-container *ngFor="let cell of cells; let rowIndex = index">
+      <app-calendar-cell
+        [selectedDay]="selectedDay"
+        [cell]="cell"
+        class="cell"
+      ></app-calendar-cell>
+    </ng-container>
+  </div>
+</div>
