@@ -22,12 +22,6 @@
   border-right: 1px solid #e1e1e1;
 }
 
-.event-container {
-  position: absolute;
-  top: 30%;
-  left: 50%;
-  z-index: 2;
-}
 .grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);

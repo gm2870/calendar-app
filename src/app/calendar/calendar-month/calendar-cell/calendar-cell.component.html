@@ -1,8 +1,10 @@
 <div class="cell-container">
   <div
     class="cell"
-    (click)="showEventBox()"
+    (click)="showEventBoxHandler()"
     [ngClass]="{ disabled: cell.disabled }"
+    [matMenuTriggerFor]="menu"
+    #menuTrigger="matMenuTrigger"
   >
     <div *ngIf="selectedDay === cell.day" class="selected"></div>
     <span
@@ -11,4 +13,23 @@
       >{{ cell.day }}</span
     >
   </div>
+  <!-- <div class="event-container" *ngIf="showEventBox"> -->
+  <mat-menu
+    #menu="matMenu"
+    class="custom-mat-menu"
+    yPosition="below"
+    xPosition="before"
+  >
+    <div
+      #eventContainer
+      (keydown.tab)="$event.stopPropagation()"
+      (click)="$event.stopPropagation()"
+    >
+      <app-event-box
+        (saveEvent)="saveEvent($event)"
+        (closeBox)="menuTrigger.closeMenu()"
+      ></app-event-box>
+    </div>
+  </mat-menu>
+  <!-- </div> -->
 </div>

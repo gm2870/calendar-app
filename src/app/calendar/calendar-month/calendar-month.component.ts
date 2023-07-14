@@ -23,17 +23,19 @@ export class CalendarMonthComponent implements OnInit, OnChanges {
   weekDayPair: any;
   selectedDay: number;
   selectedDate: Date;
-  showEventBox$: Observable<boolean>;
   events: CalendarEvent[] = [];
   @Input() date: Date;
   constructor(private calendarService: CalendarService) {}
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const t = this.calendarService.getTimeIntervals();
+    console.log(t);
+  }
   ngOnChanges(): void {
     this.selectedDay = new Date(this.date).getDate();
-
     const month = new Date(this.date).getMonth();
     const year = new Date(this.date).getFullYear();
 
     this.cells = this.calendarService.getCells(year, month);
   }
+  saveEvent(event: any) {}
 }

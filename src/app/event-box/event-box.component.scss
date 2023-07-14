@@ -1,9 +1,11 @@
+@use "@angular/material" as mat;
+
 .event-box {
-  width: 450px;
+  width: 400px;
   background-color: #fff;
-  box-shadow: 0 0 5px;
+  // box-shadow: 0 0 5px;
   border-radius: 4px;
-  overflow: hidden;
+  // overflow: hidden;
 }
 .form {
   padding: 1rem;
@@ -37,4 +39,7 @@
 }
 .end {
   margin: 0 10px;
+}
+.row {
+  @include mat.all-component-densities(-2);
 }
