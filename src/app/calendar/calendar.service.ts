@@ -4,7 +4,6 @@ type CalendarEvent = {
   name: string;
   startTime: string;
   endTime: string;
-  weekDayPair: string;
   date: Date;
 };
 
@@ -14,11 +13,9 @@ type CalendarEvent = {
 export class CalendarService {
   private events = new BehaviorSubject<CalendarEvent[]>([]);
   events$ = this.events.asObservable();
-
+  timeTravels = [0, 30];
   private selectedDate = new BehaviorSubject(new Date());
   selectedDate$ = this.selectedDate.asObservable();
-  private showEventBox = new BehaviorSubject(false);
-  showEventBox$ = this.showEventBox.asObservable();
 
   getCells(year: number, month: number) {
     const cells: any[] = [];
@@ -88,13 +85,34 @@ export class CalendarService {
   setNewDate(date: Date) {
     this.selectedDate.next(date);
   }
-  onShowEventBox() {
-    this.showEventBox.next(true);
-  }
-  onHideEventBox() {
-    this.showEventBox.next(false);
-  }
+
   daysInMonth(monthIndex: number, year: number) {
     return new Date(year, monthIndex + 1, 0).getDate();
+  }
+
+  getTimeIntervals() {
+    let amIntervals = [
+      {
+        hour: 12,
+        minutes: this.timeTravels,
+        type: 'AM',
+      },
+    ];
+    for (let index = 1; index <= 11; index++) {
+      amIntervals.push({
+        hour: index,
+        minutes: this.timeTravels,
+        type: 'AM',
+      });
+    }
+    const pmIntervals = amIntervals.map((x) => ({
+      ...x,
+      type: 'PM',
+    }));
+    amIntervals = amIntervals.map((x) => {
+      x.minutes.sort((a, b) => a - b);
+      return x;
+    });
+    return [...amIntervals, ...pmIntervals];
   }
 }
