@@ -26,10 +26,7 @@ export class CalendarMonthComponent implements OnInit, OnChanges {
   events: CalendarEvent[] = [];
   @Input() date: Date;
   constructor(private calendarService: CalendarService) {}
-  ngOnInit(): void {
-    const t = this.calendarService.getTimeIntervals();
-    console.log(t);
-  }
+  ngOnInit(): void {}
   ngOnChanges(): void {
     this.selectedDay = new Date(this.date).getDate();
     const month = new Date(this.date).getMonth();

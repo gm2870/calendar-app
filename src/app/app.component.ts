@@ -7,8 +7,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'calendar-app';
-  constructor() {
-    const day = new Date(2023, 6, 0).getDate();
-    console.log(day);
-  }
 }

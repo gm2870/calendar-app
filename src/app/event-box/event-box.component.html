@@ -18,11 +18,17 @@
     </div>
     <div class="form-row">
       <div class="select-container">
-        <input type="text" class="select-input select-input--left" />
+        <input #startTimeInput type="text" class="select-input" />
         <mat-form-field class="time-field" appearance="outline">
-          <mat-select formControlName="startTime">
+          <mat-select
+            formControlName="startTime"
+            (selectionChange)="startTimeChanged($event.value)"
+          >
             <ng-container *ngFor="let t of intervals">
-              <mat-option [value]="t.hour" *ngFor="let minute of t.minutes">
+              <mat-option
+                [value]="t.hour + ':' + minute + ' ' + t.type"
+                *ngFor="let minute of t.minutes"
+              >
                 <span>{{ t.hour }}</span>
                 <span>:</span>
                 <span>{{ minute }}</span>
@@ -33,15 +39,21 @@
         </mat-form-field>
       </div>
       <div class="select-container">
-        <input type="text" class="select-input" />
+        <input #endTimeInput type="text" class="select-input" />
         <mat-form-field class="time-field" appearance="outline">
-          <mat-select formControlName="endTime">
+          <mat-select
+            formControlName="endTime"
+            (selectionChange)="endTimeChanged($event.value)"
+          >
             <ng-container *ngFor="let t of intervals">
-              <mat-option [value]="t.hour" *ngFor="let minute of t.minutes">
+              <mat-option
+                [value]="t.hour + ':' + minute + ' ' + t.type"
+                *ngFor="let minute of t.minutes"
+              >
                 <span>{{ t.hour }}</span>
                 <span>:</span>
                 <span>{{ minute }}</span>
-                <span>{{ t.type }}</span>
+                <span>{{ " " + t.type }}</span>
               </mat-option>
             </ng-container>
           </mat-select>

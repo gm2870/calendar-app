@@ -1,4 +1,11 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CalendarService } from '../calendar/calendar.service';
 
@@ -13,6 +20,9 @@ export class EventBoxComponent implements OnInit {
   expand = false;
   @Output() closeBox = new EventEmitter();
   @Output() saveEvent = new EventEmitter();
+  @ViewChild('endTimeInput') endTimeInput: ElementRef;
+  @ViewChild('startTimeInput') startTimeInput: ElementRef;
+
   intervals: any;
   form!: FormGroup;
   constructor(
@@ -47,6 +57,12 @@ export class EventBoxComponent implements OnInit {
         minutes,
       };
     });
+  }
+  endTimeChanged(value: number) {
+    this.endTimeInput.nativeElement.value = value;
+  }
+  startTimeChanged(value: number) {
+    this.startTimeInput.nativeElement.value = value;
   }
   save() {
     this.saveEvent.next(this.form.value);
