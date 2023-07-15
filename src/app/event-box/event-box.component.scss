@@ -1,7 +1,7 @@
 @use "@angular/material" as mat;
 
 .event-box {
-  width: 400px;
+  width: 500px;
   background-color: #fff;
   // box-shadow: 0 0 5px;
   border-radius: 4px;
@@ -42,4 +42,35 @@
 }
 .row {
   @include mat.all-component-densities(-2);
+}
+.btn {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  display: flex;
+}
+.form-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 1.5rem 0;
+  justify-content: space-between;
+}
+
+.dropdown {
+  position: absolute;
+  top: 2rem;
+  width: 100%;
+}
+.select-container {
+  position: relative;
+}
+.select-input {
+  position: absolute;
+  top: 7px;
+  z-index: 33;
+  outline: none;
+  border: none;
+  left: 10px;
+  width: 80%;
 }

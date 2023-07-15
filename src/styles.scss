@@ -1,9 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 
-html,
-body {
-  height: 100%;
-}
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -20,4 +16,12 @@ body {
 }
 .mat-mdc-form-field-input-control.mat-mdc-form-field-input-control {
   font-size: 14px !important;
+}
+.mat-mdc-form-field-subscript-wrapper {
+  display: none;
+}
+.mat-mdc-menu-content {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+  max-height: 400px;
 }

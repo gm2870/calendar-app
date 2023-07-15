@@ -16,36 +16,36 @@
         />
       </mat-form-field>
     </div>
-    <div class="d-flex align-items-center">
-      <mat-form-field class="time-field" appearance="outline">
-        <input
-          formControlName="startTime"
-          matInput
-          min="0"
-          max="23"
-          type="number"
-          placeholder="Start Time"
-        />
-      </mat-form-field>
-
-      <div class="time-flat" (click)="toggleStartIsPM()">
-        {{ startIsPM ? "PM" : "AM" }}
+    <div class="form-row">
+      <div class="select-container">
+        <input type="text" class="select-input select-input--left" />
+        <mat-form-field class="time-field" appearance="outline">
+          <mat-select formControlName="startTime">
+            <ng-container *ngFor="let t of intervals">
+              <mat-option [value]="t.hour" *ngFor="let minute of t.minutes">
+                <span>{{ t.hour }}</span>
+                <span>:</span>
+                <span>{{ minute }}</span>
+                <span>{{ t.type }}</span>
+              </mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
       </div>
-    </div>
-    <div class="d-flex align-items-center">
-      <mat-form-field class="time-field" appearance="outline">
-        <input
-          formControlName="endTime"
-          matInput
-          min="0"
-          max="59"
-          type="number"
-          placeholder="End Time"
-        />
-      </mat-form-field>
-
-      <div class="time-flat" (click)="toggleEndIsPM()">
-        {{ endIsPM ? "PM" : "AM" }}
+      <div class="select-container">
+        <input type="text" class="select-input" />
+        <mat-form-field class="time-field" appearance="outline">
+          <mat-select formControlName="endTime">
+            <ng-container *ngFor="let t of intervals">
+              <mat-option [value]="t.hour" *ngFor="let minute of t.minutes">
+                <span>{{ t.hour }}</span>
+                <span>:</span>
+                <span>{{ minute }}</span>
+                <span>{{ t.type }}</span>
+              </mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
       </div>
     </div>
     <div class="d-flex justify-content-end">

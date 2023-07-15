@@ -6,10 +6,13 @@
     [matMenuTriggerFor]="menu"
     #menuTrigger="matMenuTrigger"
   >
-    <div *ngIf="selectedDay === cell.day" class="selected"></div>
+    <div
+      *ngIf="selectedDay === cell.day && !cell.disabled"
+      class="selected"
+    ></div>
     <span
       class="day-number"
-      [ngClass]="selectedDay === cell.day ? 'blue' : ''"
+      [ngClass]="selectedDay === cell.day && !cell.disabled ? 'blue' : ''"
       >{{ cell.day }}</span
     >
   </div>

@@ -10,9 +10,10 @@ import { CalendarService } from '../calendar/calendar.service';
 export class EventBoxComponent implements OnInit {
   startIsPM = false;
   endIsPM = false;
+  expand = false;
   @Output() closeBox = new EventEmitter();
   @Output() saveEvent = new EventEmitter();
-
+  intervals: any;
   form!: FormGroup;
   constructor(
     private fb: FormBuilder,
@@ -33,6 +34,19 @@ export class EventBoxComponent implements OnInit {
   }
   ngOnInit(): void {
     this.createForm();
+    this.intervals = this.calendarService.getTimeIntervals().map((x) => {
+      const minutes = x.minutes.map((m) => {
+        let str = m.toString();
+        if (str.length < 2) {
+          str = str + '0';
+        }
+        return str;
+      });
+      return {
+        ...x,
+        minutes,
+      };
+    });
   }
   save() {
     this.saveEvent.next(this.form.value);

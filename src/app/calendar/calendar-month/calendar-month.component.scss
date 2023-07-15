@@ -1,13 +1,18 @@
 :host {
   flex: 1;
 }
+.cal-month-view {
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 0 1px;
+}
 .cal-days {
   display: flex;
-  border: 1px solid #e1e1e1;
+  border: 0.5px solid #e1e1e1;
   flex-direction: column;
 }
 .row:not(:last-child) {
-  border-bottom: 1px solid #e1e1e1;
+  border-bottom: 0.5px solid #e1e1e1;
   &:hover {
     background-color: #f7f7f7;
   }
@@ -17,14 +22,14 @@
   flex: 1;
   padding-right: 0 !important;
   padding-left: 0 !important;
-  border-bottom: 1px solid #e1e1e1;
-
-  border-right: 1px solid #e1e1e1;
+  border-bottom: 0.5px solid #e1e1e1;
+  &:not(:last-child) {
+    border-right: 0.5px solid #e1e1e1;
+  }
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  border-top: 1px solid #e1e1e1;
-  border-left: 1px solid #e1e1e1;
+  border-left: 0.5px solid #f2f2f2;
 }
