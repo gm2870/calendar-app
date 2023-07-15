@@ -1,11 +1,8 @@
 .cell-row {
   display: flex;
   text-align: center;
-  font-weight: bolder;
-
-  &:hover {
-    background-color: #f7f7f7;
-  }
+  background-color: #3f51b5;
+  color: #fff;
 }
 
 .header-cell {
@@ -15,8 +12,5 @@
   display: block;
   white-space: nowrap;
   flex: 1;
-
-  &:hover {
-    background-color: #ededed;
-  }
+  font-weight: 400;
 }
