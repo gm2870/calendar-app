@@ -1,9 +1,8 @@
 <div class="cell-container">
   <div
     class="cell"
-    (click)="showEventBoxHandler()"
     [ngClass]="{ disabled: cell.disabled }"
-    [matMenuTriggerFor]="menu"
+    [matMenuTriggerFor]="!cell.disabled ? menu : null"
     #menuTrigger="matMenuTrigger"
   >
     <div
@@ -15,8 +14,17 @@
       [ngClass]="selectedDay === cell.day && !cell.disabled ? 'blue' : ''"
       >{{ cell.day }}</span
     >
+    <p class="event" *ngFor="let event of events">
+      {{
+        event.startTime.hour +
+          ":" +
+          event.startTime.minute +
+          " " +
+          event.startTime.type
+      }}
+      {{ event.name }}
+    </p>
   </div>
-  <!-- <div class="event-container" *ngIf="showEventBox"> -->
   <mat-menu
     #menu="matMenu"
     class="custom-mat-menu"
@@ -34,5 +42,4 @@
       ></app-event-box>
     </div>
   </mat-menu>
-  <!-- </div> -->
 </div>

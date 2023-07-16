@@ -3,10 +3,10 @@
   <div class="grid">
     <ng-container *ngFor="let cell of cells; let rowIndex = index">
       <app-calendar-cell
+        class="cell"
         [selectedDay]="selectedDay"
         [cell]="cell"
-        class="cell"
-        (saveEvent)="saveEvent($event)"
+        (shouldSaveEvent)="saveEvent($event)"
       ></app-calendar-cell>
     </ng-container>
   </div>

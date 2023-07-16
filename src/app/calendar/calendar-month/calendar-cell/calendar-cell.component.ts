@@ -1,14 +1,13 @@
 import {
   Component,
-  ElementRef,
   EventEmitter,
-  HostListener,
   Input,
   Output,
-  ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { CalendarService } from '../../calendar.service';
+import { CalendarEvent, CalendarService } from '../../calendar.service';
+import { Cell } from 'src/app/models/cell.model';
+import { EventForm } from 'src/app/event-box/event-box.component';
 
 @Component({
   selector: 'app-calendar-cell',
@@ -17,20 +16,19 @@ import { CalendarService } from '../../calendar.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class CalendarCellComponent {
-  @Input() cell: any;
-  events: any;
+  events: CalendarEvent[];
+  @Input() cell: Cell;
   @Input() selectedDay: number;
-  @Output() onCellClick = new EventEmitter();
-  showEventBox: boolean;
-  @ViewChild('eventContainer') eventContainer: ElementRef;
+  @Output() shouldSaveEvent = new EventEmitter<EventForm>();
   constructor(private calendarService: CalendarService) {}
-
-  ngOnInit(): void {}
-
-  showEventBoxHandler() {
-    this.showEventBox = true;
+  ngOnInit(): void {
+    this.calendarService.events$.subscribe((events: CalendarEvent[]) => {
+      console.log(events);
+      this.events = events.filter((e) => e.date.getDate() === this.cell.day);
+    });
   }
-  saveEvent(event: any) {
-    console.log(event);
+
+  saveEvent(event: EventForm) {
+    this.shouldSaveEvent.emit(event);
   }
 }

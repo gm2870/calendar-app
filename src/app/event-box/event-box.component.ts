@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -7,7 +8,17 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CalendarService } from '../calendar/calendar.service';
+import {
+  CalendarEvent,
+  CalendarService,
+  EventTime,
+} from '../calendar/calendar.service';
+
+export type EventForm = {
+  name: string;
+  startTime: EventTime;
+  endTime: EventTime;
+};
 
 @Component({
   selector: 'app-event-box',
@@ -19,7 +30,7 @@ export class EventBoxComponent implements OnInit {
   endIsPM = false;
   expand = false;
   @Output() closeBox = new EventEmitter();
-  @Output() saveEvent = new EventEmitter();
+  @Output() saveEvent = new EventEmitter<EventForm>();
   @ViewChild('endTimeInput') endTimeInput: ElementRef;
   @ViewChild('startTimeInput') startTimeInput: ElementRef;
 
@@ -27,14 +38,10 @@ export class EventBoxComponent implements OnInit {
   form!: FormGroup;
   constructor(
     private fb: FormBuilder,
-    private calendarService: CalendarService
+    private calendarService: CalendarService,
+    private cdr: ChangeDetectorRef
   ) {}
-  toggleStartIsPM() {
-    this.startIsPM = !this.startIsPM;
-  }
-  toggleEndIsPM() {
-    this.endIsPM = !this.endIsPM;
-  }
+
   createForm() {
     this.form = this.fb.group({
       name: ['', Validators.required],
@@ -42,6 +49,7 @@ export class EventBoxComponent implements OnInit {
       endTime: ['', Validators.required],
     });
   }
+
   ngOnInit(): void {
     this.createForm();
     this.intervals = this.calendarService.getTimeIntervals().map((x) => {
@@ -58,14 +66,24 @@ export class EventBoxComponent implements OnInit {
       };
     });
   }
-  endTimeChanged(value: number) {
-    this.endTimeInput.nativeElement.value = value;
+
+  endTimeChanged(value: EventTime) {
+    this.endTimeInput.nativeElement.value = `${value.hour}:${
+      value.minute
+    } ${value.type.toUpperCase()}`;
   }
-  startTimeChanged(value: number) {
-    this.startTimeInput.nativeElement.value = value;
+
+  startTimeChanged(value: EventTime) {
+    this.startTimeInput.nativeElement.value = `${value.hour}:${
+      value.minute
+    } ${value.type.toUpperCase()}`;
   }
+
   save() {
-    this.saveEvent.next(this.form.value);
+    const event: EventForm = this.form.getRawValue();
+    event.startTime.minute = Number(event.startTime.minute);
+    event.endTime.minute = Number(event.endTime.minute);
+    this.saveEvent.next(event);
     this.closeBox.emit();
   }
 }

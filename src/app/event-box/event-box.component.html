@@ -18,7 +18,12 @@
     </div>
     <div class="form-row">
       <div class="select-container">
-        <input #startTimeInput type="text" class="select-input" />
+        <input
+          #startTimeInput
+          placeholder="12:00 AM"
+          type="text"
+          class="select-input"
+        />
         <mat-form-field class="time-field" appearance="outline">
           <mat-select
             formControlName="startTime"
@@ -26,7 +31,7 @@
           >
             <ng-container *ngFor="let t of intervals">
               <mat-option
-                [value]="t.hour + ':' + minute + ' ' + t.type"
+                [value]="{ hour: t.hour, minute, type: t.type }"
                 *ngFor="let minute of t.minutes"
               >
                 <span>{{ t.hour }}</span>
@@ -39,7 +44,12 @@
         </mat-form-field>
       </div>
       <div class="select-container">
-        <input #endTimeInput type="text" class="select-input" />
+        <input
+          #endTimeInput
+          placeholder="12:00 AM"
+          type="text"
+          class="select-input"
+        />
         <mat-form-field class="time-field" appearance="outline">
           <mat-select
             formControlName="endTime"
@@ -47,7 +57,7 @@
           >
             <ng-container *ngFor="let t of intervals">
               <mat-option
-                [value]="t.hour + ':' + minute + ' ' + t.type"
+                [value]="{ hour: t.hour, minute, type: t.type }"
                 *ngFor="let minute of t.minutes"
               >
                 <span>{{ t.hour }}</span>

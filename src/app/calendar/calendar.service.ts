@@ -1,19 +1,23 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, of as observableOf } from 'rxjs';
-type CalendarEvent = {
+export type CalendarEvent = {
   name: string;
-  startTime: string;
-  endTime: string;
+  startTime: EventTime;
+  endTime: EventTime;
   date: Date;
 };
-
+export type EventTime = {
+  hour: number;
+  minute: number;
+  type: string;
+};
 @Injectable({
   providedIn: 'root',
 })
 export class CalendarService {
   private events = new BehaviorSubject<CalendarEvent[]>([]);
   events$ = this.events.asObservable();
-  timeTravels = [0, 30];
+  minuteTravels = [0, 30];
   private selectedDate = new BehaviorSubject(new Date());
   selectedDate$ = this.selectedDate.asObservable();
 
@@ -48,7 +52,7 @@ export class CalendarService {
     }
     return cells;
   }
-  getPastDays(year: number, month: number, firstDayIndex: number) {
+  private getPastDays(year: number, month: number, firstDayIndex: number) {
     const pastDays: any = [];
     if (firstDayIndex === 0) return pastDays;
 
@@ -68,7 +72,7 @@ export class CalendarService {
     }
     return pastDays;
   }
-  getFutureDays(lastDayIndex: number) {
+  private getFutureDays(lastDayIndex: number) {
     const futureDays: any = [];
 
     for (let index = 1; index < 6; index++) {
@@ -94,14 +98,14 @@ export class CalendarService {
     let amIntervals = [
       {
         hour: 12,
-        minutes: this.timeTravels,
+        minutes: this.minuteTravels,
         type: 'AM',
       },
     ];
     for (let index = 1; index <= 11; index++) {
       amIntervals.push({
         hour: index,
-        minutes: this.timeTravels,
+        minutes: this.minuteTravels,
         type: 'AM',
       });
     }
