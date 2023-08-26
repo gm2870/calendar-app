@@ -23,7 +23,6 @@ export class CalendarCellComponent {
   constructor(private calendarService: CalendarService) {}
   ngOnInit(): void {
     this.calendarService.events$.subscribe((events: CalendarEvent[]) => {
-      console.log(events);
       this.events = events.filter((e) => e.date.getDate() === this.cell.day);
     });
   }

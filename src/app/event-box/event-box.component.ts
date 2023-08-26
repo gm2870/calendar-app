@@ -8,11 +8,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {
-  CalendarEvent,
-  CalendarService,
-  EventTime,
-} from '../calendar/calendar.service';
+import { CalendarService, EventTime } from '../calendar/calendar.service';
 
 export type EventForm = {
   name: string;
@@ -38,8 +34,7 @@ export class EventBoxComponent implements OnInit {
   form!: FormGroup;
   constructor(
     private fb: FormBuilder,
-    private calendarService: CalendarService,
-    private cdr: ChangeDetectorRef
+    private calendarService: CalendarService
   ) {}
 
   createForm() {

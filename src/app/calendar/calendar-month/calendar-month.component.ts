@@ -35,7 +35,6 @@ export class CalendarMonthComponent implements OnChanges, OnInit {
       ...event,
       date: this.date,
     };
-    console.log([...this.events, e]);
     this.calendarService.saveEvent([...this.events, e]);
   }
 }

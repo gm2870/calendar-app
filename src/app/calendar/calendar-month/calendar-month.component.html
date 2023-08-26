@@ -1,13 +1,15 @@
 <div class="cal-month-view">
-  <app-calendar-month-header></app-calendar-month-header>
-  <div class="grid">
-    <ng-container *ngFor="let cell of cells; let rowIndex = index">
-      <app-calendar-cell
-        class="cell"
-        [selectedDay]="selectedDay"
-        [cell]="cell"
-        (shouldSaveEvent)="saveEvent($event)"
-      ></app-calendar-cell>
-    </ng-container>
-  </div>
+  <mat-card>
+    <app-calendar-month-header></app-calendar-month-header>
+    <div class="grid">
+      <ng-container *ngFor="let cell of cells; let rowIndex = index">
+        <app-calendar-cell
+          class="cell"
+          [selectedDay]="selectedDay"
+          [cell]="cell"
+          (shouldSaveEvent)="saveEvent($event)"
+        ></app-calendar-cell>
+      </ng-container>
+    </div>
+  </mat-card>
 </div>
