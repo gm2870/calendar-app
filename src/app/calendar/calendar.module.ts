@@ -9,6 +9,8 @@ import { MaterialModule } from '../material.module';
 import { EventBoxDirective } from '../calendar.directive';
 import { EventBoxComponent } from '../event-box/event-box.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { OverlayContainerComponent } from '../overlay-container/overlay-container.component';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
+    OverlayContainerComponent,
+    OverlayModule,
   ],
   exports: [
     CalendarComponent,

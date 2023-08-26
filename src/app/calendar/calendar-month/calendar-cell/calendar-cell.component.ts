@@ -17,6 +17,7 @@ import { EventForm } from 'src/app/event-box/event-box.component';
 })
 export class CalendarCellComponent {
   events: CalendarEvent[];
+  isOpen = false;
   @Input() cell: Cell;
   @Input() selectedDay: number;
   @Output() shouldSaveEvent = new EventEmitter<EventForm>();

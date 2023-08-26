@@ -2,8 +2,9 @@
   <div
     class="cell"
     [ngClass]="{ disabled: cell.disabled }"
-    [matMenuTriggerFor]="!cell.disabled ? menu : null"
-    #menuTrigger="matMenuTrigger"
+    (click)="isOpen = true"
+    cdkOverlayOrigin
+    #trigger="cdkOverlayOrigin"
   >
     <div
       *ngIf="selectedDay === cell.day && !cell.disabled"
@@ -25,21 +26,14 @@
       {{ event.name }}
     </p>
   </div>
-  <mat-menu
-    #menu="matMenu"
-    class="custom-mat-menu"
-    yPosition="below"
-    xPosition="before"
+  <app-overlay-container
+    (shouldClose)="isOpen = false"
+    [trigger]="trigger"
+    [isOpen]="isOpen"
   >
-    <div
-      #eventContainer
-      (keydown.tab)="$event.stopPropagation()"
-      (click)="$event.stopPropagation()"
-    >
-      <app-event-box
-        (saveEvent)="saveEvent($event)"
-        (closeBox)="menuTrigger.closeMenu()"
-      ></app-event-box>
-    </div>
-  </mat-menu>
+    <app-event-box
+      (saveEvent)="saveEvent($event)"
+      (closeBox)="isOpen = false"
+    ></app-event-box>
+  </app-overlay-container>
 </div>
