@@ -16,7 +16,7 @@ import { EventForm } from 'src/app/event-box/event-box.component';
   encapsulation: ViewEncapsulation.None,
 })
 export class CalendarCellComponent {
-  events: CalendarEvent[];
+  events: CalendarEvent[] = [];
   isOpen = false;
   @Input() cell: Cell;
   @Input() selectedDay: number;
@@ -24,11 +24,16 @@ export class CalendarCellComponent {
   constructor(private calendarService: CalendarService) {}
   ngOnInit(): void {
     this.calendarService.events$.subscribe((events: CalendarEvent[]) => {
+      if (this.cell.disabled) return;
       this.events = events.filter((e) => e.date.getDate() === this.cell.day);
     });
   }
 
   saveEvent(event: EventForm) {
     this.shouldSaveEvent.emit(event);
+  }
+  onCellClick() {
+    if (this.cell.disabled) return;
+    this.isOpen = true;
   }
 }

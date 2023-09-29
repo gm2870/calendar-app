@@ -20,7 +20,7 @@ export class OverlayContainerComponent {
     {
       originX: 'start',
       originY: 'bottom',
-      overlayX: 'start',
+      overlayX: 'center',
       overlayY: 'top',
       offsetY: 0,
     },

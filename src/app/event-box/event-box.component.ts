@@ -1,8 +1,9 @@
 import {
-  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
+  Input,
+  OnChanges,
   OnInit,
   Output,
   ViewChild,
@@ -25,12 +26,11 @@ export class EventBoxComponent implements OnInit {
   startIsPM = false;
   endIsPM = false;
   expand = false;
+  intervals: { minutes: string[]; hour: number; type: string }[] = [];
   @Output() closeBox = new EventEmitter();
   @Output() saveEvent = new EventEmitter<EventForm>();
   @ViewChild('endTimeInput') endTimeInput: ElementRef;
   @ViewChild('startTimeInput') startTimeInput: ElementRef;
-
-  intervals: any;
   form!: FormGroup;
   constructor(
     private fb: FormBuilder,
@@ -47,19 +47,7 @@ export class EventBoxComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
-    this.intervals = this.calendarService.getTimeIntervals().map((x) => {
-      const minutes = x.minutes.map((m) => {
-        let str = m.toString();
-        if (str.length < 2) {
-          str = str + '0';
-        }
-        return str;
-      });
-      return {
-        ...x,
-        minutes,
-      };
-    });
+    this.intervals = this.calendarService.getTimeIntervals();
   }
 
   endTimeChanged(value: EventTime) {

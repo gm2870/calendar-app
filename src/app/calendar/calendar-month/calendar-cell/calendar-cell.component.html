@@ -1,10 +1,9 @@
-<div class="cell-container">
+<div class="cell-container" (click)="onCellClick()">
   <div
     class="cell"
-    [ngClass]="{ disabled: cell.disabled }"
-    (click)="isOpen = true"
     cdkOverlayOrigin
     #trigger="cdkOverlayOrigin"
+    [ngClass]="{ disabled: cell.disabled }"
   >
     <div
       *ngIf="selectedDay === cell.day && !cell.disabled"
@@ -26,14 +25,15 @@
       {{ event.name }}
     </p>
   </div>
-  <app-overlay-container
-    (shouldClose)="isOpen = false"
-    [trigger]="trigger"
-    [isOpen]="isOpen"
-  >
-    <app-event-box
-      (saveEvent)="saveEvent($event)"
-      (closeBox)="isOpen = false"
-    ></app-event-box>
-  </app-overlay-container>
 </div>
+<app-overlay-container
+  (shouldClose)="isOpen = false"
+  [trigger]="trigger"
+  [isOpen]="isOpen"
+>
+  <app-event-box
+    *ngIf="isOpen"
+    (saveEvent)="saveEvent($event)"
+    (closeBox)="isOpen = false"
+  ></app-event-box>
+</app-overlay-container>

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, of as observableOf } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+import { Cell } from '../models/cell.model';
 export type CalendarEvent = {
   name: string;
   startTime: EventTime;
@@ -17,16 +18,16 @@ export type EventTime = {
 export class CalendarService {
   private events = new BehaviorSubject<CalendarEvent[]>([]);
   events$ = this.events.asObservable();
-  minuteTravels = [0, 30];
+  minuteTravels = [15, 30];
   private selectedDate = new BehaviorSubject(new Date());
   selectedDate$ = this.selectedDate.asObservable();
 
   getCells(year: number, month: number) {
-    const cells: any[] = [];
+    const cells: Cell[] = [];
     const numberOfDays = this.daysInMonth(month, year);
     let dayPosition = new Date(year, month, 1).getDay();
     const pastDays = this.getPastDays(year, month, dayPosition);
-    cells.push({ day: 1, index: dayPosition });
+    cells.push({ day: 1, index: dayPosition, disabled: false });
 
     dayPosition++;
 
@@ -35,7 +36,7 @@ export class CalendarService {
         dayPosition = 0;
       }
 
-      cells.push({ day: index + 1, index: dayPosition });
+      cells.push({ day: index + 1, index: dayPosition, disabled: false });
 
       dayPosition++;
     }
@@ -47,13 +48,13 @@ export class CalendarService {
     if (cells.length < 42) {
       const celLength = cells.length;
       for (let index = 0; index < 42 - celLength; index++) {
-        cells.push({ day: '', index: '', disabled: true });
+        cells.push({ day: 0, index: 0, disabled: true });
       }
     }
     return cells;
   }
   private getPastDays(year: number, month: number, firstDayIndex: number) {
-    const pastDays: any = [];
+    const pastDays: Cell[] = [];
     if (firstDayIndex === 0) return pastDays;
 
     const numberOfDays = this.daysInMonth(month - 1, year);
@@ -73,7 +74,7 @@ export class CalendarService {
     return pastDays;
   }
   private getFutureDays(lastDayIndex: number) {
-    const futureDays: any = [];
+    const futureDays: Cell[] = [];
 
     for (let index = 1; index < 6; index++) {
       lastDayIndex++;
@@ -98,14 +99,14 @@ export class CalendarService {
     let amIntervals = [
       {
         hour: 12,
-        minutes: this.minuteTravels,
+        minutes: this.getMinutes(this.minuteTravels),
         type: 'AM',
       },
     ];
     for (let index = 1; index <= 11; index++) {
       amIntervals.push({
         hour: index,
-        minutes: this.minuteTravels,
+        minutes: this.getMinutes(this.minuteTravels),
         type: 'AM',
       });
     }
@@ -117,6 +118,28 @@ export class CalendarService {
       x.minutes.sort((a, b) => a - b);
       return x;
     });
-    return [...amIntervals, ...pmIntervals];
+    return [...amIntervals, ...pmIntervals].map((x) => {
+      const minutes = x.minutes.map((m) => {
+        let str = m.toString().padEnd(2, '0');
+
+        return str;
+      });
+      return {
+        ...x,
+        minutes,
+      };
+    });
+  }
+
+  getMinutes(intervals: number[]): number[] {
+    const minutes = [0];
+    for (let index = 0; index < intervals.length; index++) {
+      let int = intervals[index];
+      while (int < 60) {
+        minutes.push(int);
+        int += intervals[index];
+      }
+    }
+    return [...new Set(minutes)];
   }
 }
